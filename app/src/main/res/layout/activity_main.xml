@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayoutMainActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.MainActivity">
+
+    <Button
+        android:id="@+id/buttonCalculateFactorial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainActivityCalculateFactorial"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineMainActivityHorizontalBottom5"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainActivityVerticalLeft5"
+        app:layout_constraintTop_toTopOf="@+id/guidelineMainActivityHorizontalTop5" />
+
+    <Button
+        android:id="@+id/buttonConsumeAPI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainActivityConsumeAPI"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineMainActivityHorizontalBottom5"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineMainActivityVerticalRight5"
+        app:layout_constraintTop_toTopOf="@+id/guidelineMainActivityHorizontalTop5" />
+
+    <TextView
+        android:id="@+id/textViewMainActivityWriteNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/mainActivityFactorialHint"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineMainActivityVerticalRight5"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainActivityVerticalLeft5"
+        app:layout_constraintTop_toTopOf="@+id/guidelineMainActivityHorizontalTop5" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewMainActivityEventRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineMainActivityHorizontalBottom5"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineMainActivityVerticalRight5"
+        app:layout_constraintStart_toStartOf="@+id/guidelineMainActivityVerticalLeft5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMainActivityVerticalLeft5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/guideline5dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMainActivityVerticalRight5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/guideline5dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMainActivityHorizontalTop5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="@dimen/guideline5dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMainActivityHorizontalBottom5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/guideline5dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
