@@ -66,12 +66,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupFactorialFeature() {
         binding.buttonCalculateFactorial.setOnClickListener {
             val numberString = binding.editTextMainActivityWriteNumber.text.toString()
-            if (factorialInputValidation(numberString)) {
-                binding.progressBarMainActivityFactorialResult.visibility = View.VISIBLE
-                binding.textViewMainActivityFactorialResult.visibility = View.GONE
-                binding.editTextMainActivityWriteNumber.isEnabled = false
-                viewModel.calculateFactorialAsync(numberString.toLong())
-            }
+            viewModel.calculateFactorialAsync(numberString)
         }
 
         viewModel.factorialResult.observe(this) { result ->
@@ -87,24 +82,9 @@ class MainActivity : AppCompatActivity() {
             binding.editTextMainActivityWriteNumber.isEnabled = true
             binding.textViewMainActivityFactorialResult.text = error
         }
-    }
 
-    private fun factorialInputValidation(numberString: String): Boolean {
-        if (numberString.isEmpty()) {
-            Toast.makeText(this, getString(R.string.mainActivityFactorialErrorNumberMissing), Toast.LENGTH_SHORT).show()
-            return false
+        viewModel.logMessage.observe(this) { message ->
+            Toast.makeText(this, message.asString(this), Toast.LENGTH_SHORT).show()
         }
-
-        val number = numberString.toLong()
-        if (number < 1) {
-            binding.textViewMainActivityFactorialResult.text = getString(R.string.mainActivityFactorialErrorMinorOrEqualTo0)
-            return false
-        } else if (number > 500) {
-            binding.textViewMainActivityFactorialResult.text = getString(R.string.mainActivityFactorialResultErrorNumberTooBig)
-            return false
-        }
-
-        return true
     }
-
 }

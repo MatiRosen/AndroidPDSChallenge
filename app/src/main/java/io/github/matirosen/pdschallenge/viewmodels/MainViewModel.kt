@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.matirosen.pdschallenge.R
+import io.github.matirosen.pdschallenge.UiText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,13 +22,18 @@ class MainViewModel : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> get() = _error
 
+    private val _logMessage by lazy { MutableLiveData<UiText>() }
+    val logMessage: LiveData<UiText> get() = _logMessage
+
     private val scientificNotationLimit = 15
 
 
-    fun calculateFactorialAsync(number: Long) {
+    fun calculateFactorialAsync(numberString: String) {
+        if (!factorialInputValidation(numberString)) return
+
         viewModelScope.launch {
             try {
-                val result = withContext(Dispatchers.Default) { calculateFactorial(number) }
+                val result = withContext(Dispatchers.Default) { calculateFactorial(numberString.toLong()) }
                 _factorialResult.value = result
             } catch (e: Exception) {
                 _error.value = e.message
@@ -49,5 +56,23 @@ class MainViewModel : ViewModel() {
         } else {
             plainString
         }
+    }
+
+    private fun factorialInputValidation(numberString: String): Boolean {
+        if (numberString.isEmpty()) {
+            _logMessage.postValue(UiText.StringResource(R.string.mainActivityFactorialErrorNumberMissing))
+            return false
+        }
+
+        val number = numberString.toLong()
+        if (number < 1) {
+            _logMessage.postValue(UiText.StringResource(R.string.mainActivityFactorialErrorMinorOrEqualTo0))
+            return false
+        } else if (number > 500) {
+            _logMessage.postValue(UiText.StringResource(R.string.mainActivityFactorialResultErrorNumberTooBig))
+            return false
+        }
+
+        return true
     }
 }
