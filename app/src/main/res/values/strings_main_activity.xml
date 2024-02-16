@@ -9,6 +9,7 @@
     <string name="mainActivityFactorialErrorDecimalNumber">Error</string>
     <string name="mainActivityFactorialErrorNumberTooBig">El número debe ser menor o igual a 5000</string>
     <string name="mainActivityFactoriaErrorNotANumber">Debes ingresar un número válido</string>
+    <string name="error_fetching_time">Hubo un error al consultar el reloj</string>
 
     <string name="mainActivityConsumeAPI">Consumir API</string>
 </resources>

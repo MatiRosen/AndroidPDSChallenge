@@ -1,4 +1,4 @@
-package io.github.matirosen.pdschallenge.exceptions
+package io.github.matirosen.pdschallenge.exception
 
 import io.github.matirosen.pdschallenge.ui.UiText
 
