@@ -3,10 +3,12 @@
     <string name="mainActivityFactorialCalculation">Calcular factorial</string>
     <string name="mainActivityFactorialResult">El resultado es %s</string>
     <string name="mainActivityFactorialHint">Escribe el numero para calcular el factorial aquí</string>
+
     <string name="mainActivityFactorialErrorMinorOrEqualTo0">El número debe ser mayor a 0</string>
     <string name="mainActivityFactorialErrorNumberMissing">Escribe un número</string>
-    <string name="mainActivityFactorialResultErrorDecimalNumber">Error</string>
-    <string name="mainActivityFactorialResultErrorNumberTooBig">El número debe ser menor o igual a 500.</string>
+    <string name="mainActivityFactorialErrorDecimalNumber">Error</string>
+    <string name="mainActivityFactorialErrorNumberTooBig">El número debe ser menor o igual a 5000</string>
+    <string name="mainActivityFactoriaErrorNotANumber">Debes ingresar un número válido</string>
 
     <string name="mainActivityConsumeAPI">Consumir API</string>
 </resources>

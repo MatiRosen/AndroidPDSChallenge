@@ -1,14 +1,17 @@
-package io.github.matirosen.pdschallenge.activities
+package io.github.matirosen.pdschallenge.ui.activities
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.matirosen.pdschallenge.R
 import io.github.matirosen.pdschallenge.databinding.ActivityMainBinding
-import io.github.matirosen.pdschallenge.viewmodels.MainViewModel
+import io.github.matirosen.pdschallenge.ui.viewmodels.MainViewModel
+import io.github.matirosen.pdschallenge.utils.Resource
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -70,21 +73,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.factorialResult.observe(this) { result ->
-            binding.progressBarMainActivityFactorialResult.visibility = View.GONE
-            binding.textViewMainActivityFactorialResult.visibility = View.VISIBLE
-            binding.editTextMainActivityWriteNumber.isEnabled = true
-            binding.textViewMainActivityFactorialResult.text = getString(R.string.mainActivityFactorialResult, result)
-        }
-
-        viewModel.error.observe(this) { error ->
-            binding.progressBarMainActivityFactorialResult.visibility = View.GONE
-            binding.textViewMainActivityFactorialResult.visibility = View.VISIBLE
-            binding.editTextMainActivityWriteNumber.isEnabled = true
-            binding.textViewMainActivityFactorialResult.text = error
-        }
-
-        viewModel.logMessage.observe(this) { message ->
-            Toast.makeText(this, message.asString(this), Toast.LENGTH_SHORT).show()
+            when(result) {
+                is Resource.Error -> {
+                    Toast.makeText(this, result.message?.asString(this), Toast.LENGTH_SHORT).show()
+                    handleFactorialUIState(false)
+                }
+                is Resource.Success -> {
+                    binding.textViewMainActivityFactorialResult.text = result.data
+                    handleFactorialUIState(false)
+                }
+                is Resource.Loading -> {
+                    handleFactorialUIState(true)
+                }
+            }
         }
     }
+
+    private fun handleFactorialUIState(isLoading: Boolean) {
+        binding.progressBarMainActivityFactorialResult.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.textViewMainActivityFactorialResult.visibility = if (isLoading) View.GONE else View.VISIBLE
+        binding.editTextMainActivityWriteNumber.isEnabled = !isLoading
+        binding.buttonCalculateFactorial.isEnabled = !isLoading
+    }
+
 }

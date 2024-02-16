@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PDS Challenge</string>
+
+    <string name="unknown_error">Error desconocido</string>
 </resources>

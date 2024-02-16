@@ -1,4 +1,4 @@
-package io.github.matirosen.pdschallenge
+package io.github.matirosen.pdschallenge.ui
 
 import android.content.Context
 import androidx.annotation.StringRes
