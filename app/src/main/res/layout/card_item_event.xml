@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewItemEvent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/cardViewMargin"
+    app:cardCornerRadius="@dimen/cardViewCornerRadius">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutCardViewItemEventHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgCardItemEvent"
+            android:layout_width="@dimen/cardViewImageWidth"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/img_lifecycle_default"
+            android:contentDescription="@string/image_default_event_description" />
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCardViewItemEventVertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtCardItemEventName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:textSize="@dimen/txtSubtitleSize"
+                android:textColor="@color/black"
+                android:text="@string/event_title" />
+
+            <TextView
+                android:id="@+id/txtCardItemEventTimestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:textSize="@dimen/txtDescriptionSize"
+                android:textColor="@color/black"
+                android:text="@string/event_timestamp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
