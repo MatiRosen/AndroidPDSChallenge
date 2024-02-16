@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Guidelines -->
     <dimen name="guideline5dp">5dp</dimen>
+    <dimen name="guideline35">0.35</dimen>
+    <dimen name="guideline65">0.65</dimen>
+
+    <!-- Text -->
+    <dimen name="txtButtonSize">18sp</dimen>
+    <dimen name="txtInputSize">18sp</dimen>
+    <dimen name="txtSubtitleSize">18sp</dimen>
 </resources>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="mainActivityCalculateFactorial">Calcular factorial</string>
-    <string name="mainActivityFactorialResult">El factorial de %d es %d</string>
-    <string name="mainActivityFactorialResultError">El número debe ser mayor o igual a 0</string>
+    <string name="mainActivityFactorialCalculation">Calcular factorial</string>
+    <string name="mainActivityFactorialResult">El resultado es %s</string>
     <string name="mainActivityFactorialHint">Escribe el numero para calcular el factorial aquí</string>
-    
+    <string name="mainActivityFactorialErrorMinorOrEqualTo0">El número debe ser mayor o igual a 0</string>
+    <string name="mainActivityFactorialErrorNumberMissing">Escribe un número</string>
+    <string name="mainActivityFactorialResultErrorDecimalNumber">Error</string>
+    <string name="mainActivityFactorialResultErrorNumberTooBig">El número es demasiado grande</string>
+
     <string name="mainActivityConsumeAPI">Consumir API</string>
 </resources>
