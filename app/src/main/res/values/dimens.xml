@@ -9,4 +9,15 @@
     <dimen name="txtButtonSize">18sp</dimen>
     <dimen name="txtInputSize">18sp</dimen>
     <dimen name="txtSubtitleSize">18sp</dimen>
+    <dimen name="txtDescriptionSize">16sp</dimen>
+
+    <!-- CardView -->
+    <dimen name="cardViewHeight">50dp</dimen>
+    <dimen name="cardViewMargin">10dp</dimen>
+    <dimen name="cardViewCornerRadius">10dp</dimen>
+
+    <!-- CardView Items -->
+    <dimen name="cardViewImageWidth">50dp</dimen>
+    <dimen name="cardViewItemRadius"></dimen>
+
 </resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="image_default_event_description">img_lifecycle_default</string>
+
+    <string name="event_title">Ha ocurrido un evento: %s</string>
+    <string name="event_timestamp">Timestamp: %s</string>
+</resources>

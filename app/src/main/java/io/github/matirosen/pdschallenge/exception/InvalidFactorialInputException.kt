@@ -2,11 +2,7 @@ package io.github.matirosen.pdschallenge.exception
 
 import io.github.matirosen.pdschallenge.ui.UiText
 
-class InvalidFactorialInputException(private val uiText: UiText) : Exception() {
+class InvalidFactorialInputException(uiText: UiText) : CustomException(uiText) {
 
     constructor(message: String) : this(UiText.DynamicString(message))
-
-    fun getUiText(): UiText {
-        return uiText
-    }
 }

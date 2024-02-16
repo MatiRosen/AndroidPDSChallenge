@@ -6,24 +6,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.matirosen.pdschallenge.R
-import io.github.matirosen.pdschallenge.api.WorldClockApiInterface
 import io.github.matirosen.pdschallenge.domain.FactorialCalculator
-import io.github.matirosen.pdschallenge.exception.InvalidClockRequestException
-import io.github.matirosen.pdschallenge.exception.InvalidFactorialInputException
+import io.github.matirosen.pdschallenge.entity.LifecycleEventEntity
+import io.github.matirosen.pdschallenge.exception.CustomException
 import io.github.matirosen.pdschallenge.model.WorldClockModel
+import io.github.matirosen.pdschallenge.repository.LifecycleEventRepository
 import io.github.matirosen.pdschallenge.repository.WorldClockRepository
 import io.github.matirosen.pdschallenge.ui.UiText
 import io.github.matirosen.pdschallenge.utils.Resource
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-// TODO Aca vamos a usar una mutable list para el punto 3, que la recibe el recycler
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val factorialCalculator: FactorialCalculator,
-    private val worldClockRepository: WorldClockRepository
+    private val worldClockRepository: WorldClockRepository,
+    private val lifecycleEventRepository: LifecycleEventRepository
 ) : ViewModel() {
 
     private val _factorialResult = MutableLiveData<Resource<String>>()
@@ -32,33 +30,62 @@ class MainViewModel @Inject constructor(
     private val _currentClockResult = MutableLiveData<Resource<WorldClockModel>>()
     val currentClockResult: LiveData<Resource<WorldClockModel>> get() = _currentClockResult
 
+    private val _lifecycleEvents = MutableLiveData<Resource<List<LifecycleEventEntity>>>()
+    val lifecycleEvents: LiveData<Resource<List<LifecycleEventEntity>>> get() = _lifecycleEvents
 
     fun calculateFactorialAsync(numberString: String) {
-        _factorialResult.value = Resource.Loading()
-
         viewModelScope.launch {
-            try {
-                val result = factorialCalculator.calculateFactorial(numberString)
-                _factorialResult.value = Resource.Success(result)
-            } catch (e: InvalidFactorialInputException) {
-                _factorialResult.value = Resource.Error(e.getUiText())
-            } catch (e: Exception) {
-                handleUnknownException(e.message, _factorialResult)
-            }
+            performOperation(
+                operation =  { factorialCalculator.calculateFactorial(numberString) }  ,
+                result = _factorialResult
+            )
         }
     }
 
     fun getCurrentClock() {
         viewModelScope.launch {
-            try {
-                _currentClockResult.value = Resource.Loading()
-                val result = worldClockRepository.getCurrentClock()
-                _currentClockResult.value = Resource.Success(result)
-            } catch (e: InvalidClockRequestException){
-                _currentClockResult.value = Resource.Error(e.getUiText())
-            } catch (e: Exception) {
-                handleUnknownException(e.message, _currentClockResult)
-            }
+            performOperation(
+                operation = { worldClockRepository.getCurrentClock() },
+                result = _currentClockResult
+            )
+        }
+    }
+
+    fun insertLifecycleEvent(event: LifecycleEventEntity) {
+        viewModelScope.launch {
+           try{
+                lifecycleEventRepository.insert(event)
+                getAllLifecycleEvents()
+           } catch (e: CustomException) {
+                _lifecycleEvents.value = Resource.Error(e.getUiText())
+              } catch (e: Exception) {
+                handleUnknownException(e.message, _lifecycleEvents)
+           }
+        }
+    }
+
+    fun getAllLifecycleEvents() {
+        viewModelScope.launch {
+            performOperation(
+                operation = { lifecycleEventRepository.getAll() },
+                result = _lifecycleEvents
+            )
+        }
+    }
+
+    private suspend fun <T> performOperation(
+        operation: suspend () -> T,
+        result: MutableLiveData<Resource<T>>
+    ) {
+        result.value = Resource.Loading()
+
+        try {
+            val operationResult = operation()
+            result.value = Resource.Success(operationResult)
+        } catch (e: CustomException) {
+            result.value = Resource.Error(e.getUiText())
+        } catch (e: Exception) {
+            handleUnknownException(e.message, result)
         }
     }
 
